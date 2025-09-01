@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HB2K26 - Island Event</title>
+  <style>
+    :root {
+      /* Fonts */
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      
+      /* Font Sizes */
+      --font-size-xs: 15px;
+      --font-size-sm: 18px;
+      --font-size-base: 20px;
+      --font-size-lg: 40px;
+      --font-size-xl: 60px;
+      
+      /* Letter Spacing */
+      --letter-spacing-tight: -0.5px;
+      
+      /* Font Weights */
+      --font-weight-regular: 400;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+      
+      /* Colors */
+      --color-black: #000;
+      --color-dark: #333;
+      --color-gray: #666;
+      --color-light-gray: #f5f5f5;
+      --color-white: #fff;
+      --color-highlight: #ff6b6b;
+      --color-pulse: #ff8e8e;
+      
+      /* Line Heights */
+      --line-tight: 1.1;
+      --line-normal: 1.4;
+      --line-relaxed: 1.6;
+      
+      /* Spacing */
+      --space-xs: 10px;
+      --space-sm: 15px;
+      --space-md: 20px;
+      --space-lg: 30px;
+      --space-xl: 40px;
+    }
+
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      overflow-x: hidden;
+      letter-spacing: var(--letter-spacing-tight);
+    }
+
+    /* Main Container */
+    .container {
+      display: flex;
+      min-height: 100vh;
+      width: 100vw;
+      align-items: center;
+      padding: 40px;
+      gap: 40px;
+    }
+
+    /* Left Section - Form */
+    .left-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      color: white;
+    }
+
+    .main-title {
+      font-size: 3.5rem;
+      font-weight: var(--font-weight-bold);
+      line-height: 1.1;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      font-weight: var(--font-weight-regular);
+      margin-bottom: 40px;
+      line-height: 1.4;
+      opacity: 0.95;
+    }
+
+    /* Form Styling */
+    .rsvp-form {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 40px;
+      max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 18px 25px;
+      border: none;
+      border-radius: 25px;
+      background-color: #f8f9fa;
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-input:focus {
+      background-color: #e9ecef;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .form-input::placeholder {
+      color: #6c757d;
+      opacity: 0.8;
+    }
+
+    .rsvp-button {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #ff6b6b, #ffa500);
+      color: white;
+      font-size: 18px;
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .rsvp-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+    }
+
+    .rsvp-button:active {
+      transform: translateY(0);
+    }
+
+    /* Right Section - Image */
+    .right-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .image-container {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .boat-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Sun Animation Container */
+    .sun-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+    }
+
+    .sun {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #ffd700 0%, #ffed4e 70%);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+      transition: all 2s ease-in-out;
+    }
+
+    .sun-1 {
+      top: 100px;
+      right: 0;
+      animation: sunRise1 var(--sun1-duration, 10s) ease-in-out forwards;
+    }
+
+    .sun-2 {
+      top: 80px;
+      right: 30px;
+      animation: sunRise2 var(--sun2-duration, 12s) ease-in-out forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes sunRise1 {
+      0% { transform: translateY(200px) scale(0.5); opacity: 0.3; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    @keyframes sunRise2 {
+      0% { transform: translateY(180px) scale(0.3); opacity: 0.2; }
+      100% { transform: translateY(0) scale(0.8); opacity: 0.9; }
+    }
+
+    .overlay-text {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: var(--font-weight-bold);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      transform: rotate(-10deg);
+      background: rgba(0,0,0,0.3);
+      padding: 10px 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Success Message */
+    .success-message {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+      padding: 20px;
+      border-radius: 20px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: var(--font-weight-semibold);
+      display: none;
+    }
+
+    /* Timer Display */
+    .timer-display {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .timer-title {
+      font-size: 1.2rem;
+      font-weight: var(--font-weight-bold);
+      margin-bottom: 10px;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      font-weight: var(--font-weight-bold);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+      }
+
+      .left-section {
+        padding: 20px;
+        text-align: center;
+      }
+
+      .main-title {
+        font-size: 2.5rem;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .rsvp-form {
+        padding: 30px;
+        max-width: 100%;
+      }
+
+      .image-container {
+        max-width: 100%;
+      }
+
+      .overlay-text {
+        font-size: 1rem;
+        bottom: 20px;
+        left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="left-section">
+      <div class="timer-display">
+        <div class="timer-title">Event Countdown</div>
+        <div class="countdown" id="countdown">Loading...</div>
+      </div>
+      
+      <h1 class="main-title">When the suns fully rise, we'll be back on the island!</h1>
+      
+      <p class="subtitle">Until then, let me know you're planning on coming by adding your name and # to the official HB2K26 group chat!</p>
+      
+      <form class="rsvp-form" id="rsvpForm">
+        <div class="form-group">
+          <input type="text" class="form-input" id="fullName" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" class="form-input" id="phoneNumber" placeholder="Number" required>
+        </div>
+        <button type="submit" class="rsvp-button">RSVP</button>
+      </form>
+      
+      <div class="success-message" id="successMessage">
+        Thanks for signing up! You'll be added to the WhatsApp group soon. 🌅
+      </div>
+    </section>
+    
+    <section class="right-section">
+      <div class="image-container">
+        <!-- You'll need to replace this with your actual boat image -->
+        <svg class="boat-image" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sky background -->
+          <defs>
+            <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#4682B4;stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#4682B4;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#191970;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          
+          <!-- Sky -->
+          <rect width="500" height="250" fill="url(#skyGradient)"/>
+          
+          <!-- Water -->
+          <rect y="250" width="500" height="150" fill="url(#waterGradient)"/>
+          
+          <!-- Mountains -->
+          <polygon points="0,250 100,150 200,200 300,120 400,180 500,160 500,250" fill="#2F4F4F" opacity="0.8"/>
+          
+          <!-- Boat hull -->
+          <ellipse cx="250" cy="320" rx="80" ry="25" fill="#8B4513"/>
+          
+          <!-- Boat deck -->
+          <ellipse cx="250" cy="315" rx="75" ry="20" fill="#F5DEB3"/>
+          
+          <!-- People on boat (simplified) -->
+          <circle cx="220" cy="300" r="8" fill="#FFB6C1"/>
+          <circle cx="240" cy="305" r="8" fill="#FFB6C1"/>
+          <circle cx="260" cy="302" r="8" fill="#FFB6C1"/>
+          <circle cx="280" cy="308" r="8" fill="#FFB6C1"/>
+          
+          <!-- Arms up celebration -->
+          <line x1="215" y1="295" x2="205" y2="285" stroke="#FFB6C1" stroke-width="3"/>
+          <line x1="225" y1="295" x2="235" y2="285" stroke="#FFB6C1" stroke-width="3"/>
+          <line x1="255" y1="297" x2="245" y2="287" stroke="#FFB6C1" stroke-width="3"/>
+          <line x1="265" y1="297" x2="275" y2="287" stroke="#FFB6C1" stroke-width="3"/>
+          
+          <!-- Sun reflection on water -->
+          <ellipse cx="150" cy="280" rx="30" ry="8" fill="#FFD700" opacity="0.6"/>
+        </svg>
+        
+        <!-- Animated suns -->
+        <div class="sun-container">
+          <div class="sun sun-1" id="sun1"></div>
+          <div class="sun sun-2" id="sun2"></div>
+        </div>
+        
+        <div class="overlay-text">watch the suns rise</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Set your target date here (YYYY, MM-1, DD, HH, MM, SS)
+    const targetDate = new Date(2026, 5, 15, 18, 0, 0); // June 15, 2026, 6:00 PM
+    
+    // Calculate sun animation based on time until target date
+    function updateSunAnimation() {
+      const now = new Date();
+      const totalTime = targetDate.getTime() - new Date(2025, 0, 1).getTime(); // From Jan 1, 2025 to target
+      const remainingTime = targetDate.getTime() - now.getTime();
+      const elapsed = totalTime - remainingTime;
+      const progress = Math.max(0, Math.min(1, elapsed / totalTime));
+      
+      // Update sun positions based on progress
+      const sun1 = document.getElementById('sun1');
+      const sun2 = document.getElementById('sun2');
+      
+      if (sun1 && sun2) {
+        const sun1Progress = Math.min(1, progress * 2); // First sun rises faster
+        const sun2Progress = Math.max(0, Math.min(1, (progress - 0.2) * 1.25)); // Second sun starts later
+        
+        sun1.style.transform = `translateY(${200 - (200 * sun1Progress)}px) scale(${0.5 + (0.5 * sun1Progress)})`;
+        sun1.style.opacity = 0.3 + (0.7 * sun1Progress);
+        
+        sun2.style.transform = `translateY(${180 - (180 * sun2Progress)}px) scale(${0.3 + (0.5 * sun2Progress)})`;
+        sun2.style.opacity = 0.2 + (0.7 * sun2Progress);
+      }
+    }
+    
+    // Countdown timer
+    function updateCountdown() {
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        
+        document.getElementById('countdown').textContent = 
+          `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        document.getElementById('countdown').textContent = "The suns have risen! 🌅";
+      }
+    }
+    
+    // Form submission
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('fullName').value;
+      const phone = document.getElementById('phoneNumber').value;
+      
+      if (name && phone) {
+        // Here you would typically send this data to a server or service
+        // For now, we'll just show a success message
+        console.log('RSVP Submission:', { name, phone });
+        
+        // You could integrate with a service like:
+        // 1. Google Sheets API
+        // 2. Airtable API  
+        // 3. A serverless function (Netlify/Vercel)
+        // 4. WhatsApp Business API
+        
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('rsvpForm').style.display = 'none';
+        
+        // Optional: Create WhatsApp group invite link
+        // const whatsappGroupLink = `https://chat.whatsapp.com/YOUR_GROUP_INVITE_CODE`;
+        // setTimeout(() => {
+        //   window.open(whatsappGroupLink, '_blank');
+        // }, 2000);
+      }
+    });
+    
+    // Initialize and update animations
+    updateSunAnimation();
+    updateCountdown();
+    
+    // Update every second
+    setInterval(() => {
+      updateCountdown();
+      updateSunAnimation();
+    }, 1000);
+    
+    // Phone number formatting
+    document.getElementById('phoneNumber').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 6) {
+        value = value.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
+      } else if (value.length >= 3) {
+        value = value.replace(/(\d{3})(\d+)/, '($1) $2');
+      }
+      e.target.value = value;
+    });
+  </script>
+</body>
+</html>
