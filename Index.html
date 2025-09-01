@@ -7,7 +7,7 @@
   <style>
     :root {
       /* Fonts */
-      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-main: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       
       /* Font Sizes */
       --font-size-xs: 15px;
@@ -17,7 +17,7 @@
       --font-size-xl: 60px;
       
       /* Letter Spacing */
-      --letter-spacing-tight: -0.5px;
+      --letter-spacing-tight: -5%;
       
       /* Font Weights */
       --font-weight-regular: 400;
@@ -30,8 +30,8 @@
       --color-gray: #666;
       --color-light-gray: #f5f5f5;
       --color-white: #fff;
-      --color-highlight: #ff6b6b;
-      --color-pulse: #ff8e8e;
+      --color-highlight: #FF9999;
+      --color-pulse: #ffb3b3;
       
       /* Line Heights */
       --line-tight: 1.1;
@@ -73,6 +73,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      text-align: center;
       padding: 40px;
       color: white;
     }
@@ -100,7 +102,7 @@
       border-radius: 30px;
       padding: 40px;
       max-width: 400px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
     .form-group {
@@ -117,12 +119,13 @@
       font-family: inherit;
       transition: all 0.3s ease;
       outline: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
     .form-input:focus {
       background-color: #e9ecef;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     }
 
     .form-input::placeholder {
@@ -135,7 +138,7 @@
       padding: 18px;
       border: none;
       border-radius: 25px;
-      background: linear-gradient(135deg, #ff6b6b, #ffa500);
+      background-color: var(--color-highlight);
       color: white;
       font-size: 18px;
       font-weight: var(--font-weight-bold);
@@ -143,11 +146,13 @@
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(255, 153, 153, 0.4);
     }
 
     .rsvp-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+      box-shadow: 0 12px 30px rgba(255, 153, 153, 0.6);
+      background-color: var(--color-pulse);
     }
 
     .rsvp-button:active {
