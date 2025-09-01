@@ -80,17 +80,17 @@
     }
 
     .main-title {
-      font-size: 3.5rem;
+      font-size: 4.5rem;
       font-weight: var(--font-weight-bold);
       line-height: 1.1;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     .subtitle {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: var(--font-weight-regular);
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       line-height: 1.4;
       opacity: 0.95;
     }
@@ -100,22 +100,23 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       border-radius: 30px;
-      padding: 40px;
-      max-width: 400px;
+      padding: 50px;
+      max-width: 480px;
+      width: 100%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
     .form-group {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .form-input {
       width: 100%;
-      padding: 18px 25px;
+      padding: 22px 30px;
       border: none;
       border-radius: 25px;
       background-color: #f8f9fa;
-      font-size: 16px;
+      font-size: 18px;
       font-family: inherit;
       transition: all 0.3s ease;
       outline: none;
@@ -135,12 +136,12 @@
 
     .rsvp-button {
       width: 100%;
-      padding: 18px;
+      padding: 22px;
       border: none;
       border-radius: 25px;
       background-color: var(--color-highlight);
       color: white;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: var(--font-weight-bold);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -173,13 +174,15 @@
       border-radius: 30px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      max-width: 500px;
+      max-width: 600px;
       width: 100%;
+      min-height: 500px;
     }
 
     .boat-image {
       width: 100%;
-      height: auto;
+      height: 500px;
+      object-fit: cover;
       display: block;
     }
 
@@ -252,15 +255,9 @@
       display: none;
     }
 
-    /* Timer Display */
+    /* Timer Display - Hide to match mockup */
     .timer-display {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      color: white;
-      padding: 20px;
-      border-radius: 20px;
-      margin-bottom: 30px;
-      text-align: center;
+      display: none;
     }
 
     .timer-title {
@@ -289,11 +286,11 @@
       }
 
       .main-title {
-        font-size: 2.5rem;
+        font-size: 3rem;
       }
 
       .subtitle {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
 
       .rsvp-form {
