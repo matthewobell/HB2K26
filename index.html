@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HB2K26</title>
+  <title>HB2K26 - Island Event</title>
   <style>
     :root {
       --font-main: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -41,6 +41,7 @@
       background: linear-gradient(90deg, #7A95F3 0%, #FF9999 100%);
       overflow-x: hidden;
       letter-spacing: var(--letter-spacing-tight);
+      scroll-behavior: smooth; /* for smooth anchor/scrollIntoView */
     }
 
     .container {
@@ -67,13 +68,14 @@
       font-size: 3rem;
       font-weight: var(--font-weight-bold);
       line-height: 1.1;
-      margin-bottom: 40px;
+      margin-bottom: 24px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     .subtitle {
       font-size: 1.5rem;
       font-weight: var(--font-weight-bold);
+      margin-top: 20px;   /* space after the mobile video on small screens */
       margin-bottom: 40px;
       line-height: 1.4;
       opacity: 0.95;
@@ -96,15 +98,14 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.25);
       align-self: center;
     }
-
     .rsvp-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.35);
       background-color: var(--color-pulse);
     }
-
     .rsvp-button:active { transform: translateY(0); }
 
+    /* Desktop/Tablet video on right */
     .right-section {
       flex: 1;
       display: flex;
@@ -113,7 +114,6 @@
       position: relative;
       padding: 20px 0;
     }
-
     .image-container {
       position: relative;
       border-radius: 30px;
@@ -127,7 +127,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .boat-video {
       width: 100%;
       max-height: 100%;
@@ -135,7 +134,6 @@
       display: block;
       border-radius: 20px;
     }
-
     .countdown-bubble {
       position: absolute;
       top: 20px;
@@ -148,7 +146,6 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       z-index: 10;
     }
-
     .timer-title {
       font-size: 0.9rem;
       font-weight: var(--font-weight-bold);
@@ -156,7 +153,6 @@
       margin-bottom: 5px;
       text-transform: none;
     }
-
     .countdown {
       font-size: 1.1rem;
       font-weight: var(--font-weight-bold);
@@ -165,15 +161,53 @@
       letter-spacing: -0.02em;
     }
 
+    /* --- Mobile-only inline video between header & subheader --- */
+    .mobile-video-wrap {
+      display: none;            /* hidden by default (desktop/tablet) */
+      width: 100%;
+      max-width: 620px;
+      margin-top: 8px;
+    }
+    .mobile-video {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      display: block;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+    /* Round arrow button */
+    .scroll-arrow {
+      display: none;            /* only on mobile */
+      margin: 12px auto 0;
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .scroll-arrow:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,0.3); }
+    .scroll-arrow:active { transform: translateY(0); }
+    .scroll-arrow-icon {
+      font-size: 24px;
+      line-height: 54px;
+      color: #333;
+      display: inline-block;
+    }
+
+    /* Mobile breakpoint */
     @media (max-width: 768px) {
-      .container { flex-direction: column; padding: 20px; gap: 30px; }
-      .left-section { padding: 20px; text-align: center; }
-      .main-title { font-size: 2.5rem; }
-      .subtitle { font-size: 1.3rem; }
-      .image-container { max-width: 100%; max-height: 50vh; }
-      .countdown-bubble { top: 15px; right: 15px; padding: 12px 16px; }
-      .countdown { font-size: 1rem; }
-      .timer-title { font-size: 0.8rem; }
+      .container { flex-direction: column; padding: 20px; gap: 24px; }
+      .left-section { padding: 12px 16px; }
+      .main-title { font-size: 2.4rem; margin-bottom: 12px; }
+      .subtitle { font-size: 1.2rem; margin-bottom: 28px; }
+
+      /* Show inline video + arrow, hide the right-side video */
+      .mobile-video-wrap { display: block; }
+      .scroll-arrow { display: block; }
+      .right-section { display: none; }
     }
   </style>
 </head>
@@ -181,18 +215,32 @@
   <main class="container">
     <section class="left-section">
       <h1 class="main-title">When Palmer stops dancing, we'll be back on the island!</h1>
+
+      <!-- MOBILE-ONLY INLINE VIDEO (appears between header & subheader) -->
+      <div class="mobile-video-wrap" aria-hidden="true">
+        <video 
+          class="mobile-video boat-video" 
+          muted autoplay playsinline webkit-playsinline loop preload="auto">
+          <source src="heroimage_h264.mp4" type="video/mp4">
+        </video>
+        <!-- round arrow to scroll down to the join button -->
+        <button class="scroll-arrow" id="scrollDownBtn" aria-label="Scroll to Join button">
+          <span class="scroll-arrow-icon">⌄</span>
+        </button>
+      </div>
+
       <p class="subtitle">Until then, tap below to join the official HB2K26 Instagram group chat.</p>
 
       <button type="button" class="rsvp-button" id="igJoinBtn">Join Instagram Chat</button>
     </section>
     
+    <!-- DESKTOP/TABLET VIDEO ON RIGHT -->
     <section class="right-section">
       <div class="image-container">
         <video 
           class="boat-video" 
           muted autoplay playsinline webkit-playsinline loop preload="auto">
           <source src="heroimage_h264.mp4" type="video/mp4">
-          Your browser does not support the video tag.
         </video>
 
         <div class="countdown-bubble">
@@ -204,10 +252,17 @@
   </main>
 
   <script>
+    // Instagram group invite link
     const IG_INVITE_LINK = "https://ig.me/j/AbbJ-WdUYtzsO8bQ/";
 
     document.getElementById('igJoinBtn')?.addEventListener('click', () => {
       window.open(IG_INVITE_LINK, '_blank', 'noopener');
+    });
+
+    // Mobile arrow scroll -> scrolls to the Join button
+    document.getElementById('scrollDownBtn')?.addEventListener('click', () => {
+      const joinBtn = document.getElementById('igJoinBtn');
+      if (joinBtn) joinBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     // Countdown (May 3, 2026 at 6:00 PM)
@@ -229,6 +284,35 @@
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // Best-effort autoplay hardening for both videos (Safari quirks)
+    function ensureInlineMuted(videoEl) {
+      if (!videoEl) return;
+      videoEl.muted = true;
+      videoEl.playsInline = true;
+      videoEl.setAttribute('muted','');
+      videoEl.setAttribute('playsinline','');
+      videoEl.setAttribute('webkit-playsinline','');
+      videoEl.autoplay = true;
+      videoEl.setAttribute('autoplay','');
+    }
+    async function tryPlay(videoEl) {
+      try { await videoEl.play(); } catch(e) { /* ignore */ }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const vids = document.querySelectorAll('.boat-video');
+      vids.forEach(v => {
+        ensureInlineMuted(v);
+        v.load();
+        tryPlay(v);
+        ['loadedmetadata','canplay','loadeddata'].forEach(ev => {
+          v.addEventListener(ev, () => tryPlay(v), { once:true });
+        });
+        // Last resort: first tap anywhere
+        const unlock = () => { tryPlay(v); window.removeEventListener('pointerdown', unlock); };
+        window.addEventListener('pointerdown', unlock, { once:true, passive:true });
+      });
+    });
   </script>
 </body>
 </html>
