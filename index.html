@@ -6,25 +6,16 @@
   <title>HB2K26 - Island Event</title>
   <style>
     :root {
-      /* Fonts */
       --font-main: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      
-      /* Font Sizes */
       --font-size-xs: 15px;
       --font-size-sm: 18px;
       --font-size-base: 20px;
       --font-size-lg: 40px;
       --font-size-xl: 60px;
-      
-      /* Letter Spacing */
       --letter-spacing-tight: -5%;
-      
-      /* Font Weights */
       --font-weight-regular: 400;
       --font-weight-semibold: 600;
       --font-weight-bold: 700;
-      
-      /* Colors */
       --color-black: #000;
       --color-dark: #333;
       --color-gray: #666;
@@ -32,13 +23,9 @@
       --color-white: #fff;
       --color-highlight: #FF9999;
       --color-pulse: #ffb3b3;
-      
-      /* Line Heights */
       --line-tight: 1.1;
       --line-normal: 1.4;
       --line-relaxed: 1.6;
-      
-      /* Spacing */
       --space-xs: 10px;
       --space-sm: 15px;
       --space-md: 20px;
@@ -46,7 +33,6 @@
       --space-xl: 40px;
     }
 
-    /* Reset & Base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
@@ -57,7 +43,6 @@
       letter-spacing: var(--letter-spacing-tight);
     }
 
-    /* Main Container */
     .container {
       display: flex;
       min-height: 100vh;
@@ -67,7 +52,6 @@
       gap: 40px;
     }
 
-    /* Left Section - Form */
     .left-section {
       flex: 1;
       display: flex;
@@ -96,7 +80,6 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
-    /* Form Styling */
     .rsvp-form {
       backdrop-filter: blur(10px);
       border-radius: 30px;
@@ -108,9 +91,7 @@
       gap: 20px;
     }
 
-    .form-group {
-      margin: 0;
-    }
+    .form-group { margin: 0; }
 
     .form-input {
       width: 100%;
@@ -124,7 +105,7 @@
       transition: all 0.3s ease;
       outline: none;
       background-color: rgba(255, 255, 255, 0.9);
-      color: #A8A8FF; /* Lighter purple-blue color matching mockup */
+      color: #A8A8FF;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
@@ -136,19 +117,19 @@
     }
 
     .form-input::placeholder {
-      color: #B8B8FF; /* Even lighter version matching the mockup */
+      color: #B8B8FF;
       opacity: 1;
       font-weight: var(--font-weight-bold);
     }
 
     .rsvp-button {
-      width: auto;              
+      width: auto;
       padding: 18px 32px;
       border: none;
-      border-radius: 40px;      
+      border-radius: 40px;
       background-color: var(--color-highlight);
       color: white;
-      font-size: 16px;          
+      font-size: 16px;
       font-weight: var(--font-weight-bold);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -165,11 +146,8 @@
       background-color: var(--color-pulse);
     }
 
-    .rsvp-button:active {
-      transform: translateY(0);
-    }
+    .rsvp-button:active { transform: translateY(0); }
 
-    /* Right Section - Video */
     .right-section {
       flex: 1;
       display: flex;
@@ -201,7 +179,6 @@
       border-radius: 20px;
     }
 
-    /* Timer positioned over the image */
     .countdown-bubble {
       position: absolute;
       top: 20px;
@@ -231,7 +208,6 @@
       letter-spacing: -0.02em;
     }
 
-    /* Success Message */
     .success-message {
       background: linear-gradient(135deg, #28a745, #20c997);
       color: white;
@@ -243,50 +219,16 @@
       display: none;
     }
 
-    /* Mobile Responsive */
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 20px;
-        gap: 30px;
-      }
-
-      .left-section {
-        padding: 20px;
-        text-align: center;
-      }
-
-      .main-title {
-        font-size: 2.5rem;
-      }
-
-      .subtitle {
-        font-size: 1.3rem;
-      }
-
-      .rsvp-form {
-        padding: 20px;
-        max-width: 100%;
-      }
-
-      .image-container {
-        max-width: 100%;
-        max-height: 50vh;
-      }
-
-      .countdown-bubble {
-        top: 15px;
-        right: 15px;
-        padding: 12px 16px;
-      }
-
-      .countdown {
-        font-size: 1rem;
-      }
-
-      .timer-title {
-        font-size: 0.8rem;
-      }
+      .container { flex-direction: column; padding: 20px; gap: 30px; }
+      .left-section { padding: 20px; text-align: center; }
+      .main-title { font-size: 2.5rem; }
+      .subtitle { font-size: 1.3rem; }
+      .rsvp-form { padding: 20px; max-width: 100%; }
+      .image-container { max-width: 100%; max-height: 50vh; }
+      .countdown-bubble { top: 15px; right: 15px; padding: 12px 16px; }
+      .countdown { font-size: 1rem; }
+      .timer-title { font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -294,9 +236,8 @@
   <main class="container">
     <section class="left-section">
       <h1 class="main-title">When Palmer stops dancing, we'll be back on the island!</h1>
-      
       <p class="subtitle">Until then, let me know you're coming by adding your name and number to the official HB2K26 group chat!</p>
-      
+
       <form class="rsvp-form" id="rsvpForm">
         <div class="form-group">
           <input type="text" class="form-input" id="fullName" placeholder="What's your name?" required>
@@ -306,7 +247,7 @@
         </div>
         <button type="submit" class="rsvp-button">Welcome aboard! ⛵️</button>
       </form>
-      
+
       <div class="success-message" id="successMessage">
         Thanks for signing up! You'll be added to the WhatsApp group soon. 🌅
       </div>
@@ -316,10 +257,9 @@
       <div class="image-container">
         <video class="boat-video" autoplay muted loop playsinline preload="auto">
           <source src="heroimage.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-        
-        <!-- Countdown positioned over the image -->
+          Your browser does not support the video tag.
+        </video>
+
         <div class="countdown-bubble">
           <div class="timer-title">Countdown to HB2K26!</div>
           <div class="countdown" id="countdown">Loading...</div>
@@ -329,76 +269,96 @@
   </main>
 
   <script>
-    // Set target date to May 3, 2026
-    const targetDate = new Date(2026, 4, 3, 18, 0, 0); // May 3, 2026, 6:00 PM (month is 0-indexed)
-    
-    // Countdown timer
+    // Countdown (May 3, 2026 at 6:00 PM)
+    const targetDate = new Date(2026, 4, 3, 18, 0, 0);
+
     function updateCountdown() {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
-      
+      const el = document.getElementById('countdown');
+      if (!el) return;
+
       if (difference > 0) {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-        
-        document.getElementById('countdown').textContent = 
-          `${days}D: ${hours}H: ${minutes}M: ${seconds}S`;
+        el.textContent = `${days}D: ${hours}H: ${minutes}M: ${seconds}S`;
       } else {
-        document.getElementById('countdown').textContent = "The suns have risen! 🌅";
+        el.textContent = "The suns have risen! 🌅";
       }
     }
-    
-    // Form submission
-    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('fullName').value;
-      const phone = document.getElementById('phoneNumber').value;
-      
-      if (name && phone) {
-        // Here you would typically send this data to a server or service
-        // For now, we'll just show a success message
-        console.log('RSVP Submission:', { name, phone });
-        
-        document.getElementById('successMessage').style.display = 'block';
-        document.getElementById('rsvpForm').style.display = 'none';
+
+    // Autoplay helpers
+    function ensureInlineMuted(videoEl) {
+      // Some browsers need both attribute and property set
+      videoEl.muted = true;
+      videoEl.setAttribute('muted', '');
+      videoEl.playsInline = true;
+      videoEl.setAttribute('playsinline', '');
+      videoEl.autoplay = true;
+      videoEl.setAttribute('autoplay', '');
+    }
+
+    async function tryPlay(videoEl) {
+      try {
+        await videoEl.play();
+      } catch (e) {
+        // Swallow the error; we'll retry shortly or on visibility/focus
+        console.log('Autoplay prevented, will retry…', e?.name || e);
       }
-    });
-    
-    // Initialize and update countdown
-    updateCountdown();
-    
-    // Ensure video plays consistently
-    const video = document.querySelector('.boat-video');
-    if (video) {
-      video.addEventListener('loadeddata', () => {
-        video.play().catch(e => console.log('Video autoplay prevented:', e));
-      });
-      
-      // Handle visibility change to restart video when tab becomes visible
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.querySelector('.boat-video');
+      if (!video) return;
+
+      ensureInlineMuted(video);
+
+      // Try immediately and on key readiness events
+      tryPlay(video);
+      video.addEventListener('loadedmetadata', () => tryPlay(video), { once: true });
+      video.addEventListener('canplay', () => tryPlay(video), { once: true });
+      video.addEventListener('loadeddata', () => tryPlay(video), { once: true });
+
+      // Light retry loop for first ~3 seconds
+      let retries = 6;
+      const interval = setInterval(() => {
+        if (!video.paused || retries <= 0) return clearInterval(interval);
+        tryPlay(video);
+        retries--;
+      }, 500);
+
+      // Resume if tab becomes visible or window regains focus
       document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && video.paused) {
-          video.play().catch(e => console.log('Video play prevented:', e));
-        }
+        if (!document.hidden && video.paused) tryPlay(video);
       });
-    }
-    
-    // Update every second
-    setInterval(() => {
-      updateCountdown();
-    }, 1000);
-    
+      window.addEventListener('focus', () => {
+        if (video.paused) tryPlay(video);
+      });
+    });
+
+    // Simple RSVP success swap
+    document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phoneNumber').value.trim();
+      if (!name || !phone) return;
+      console.log('RSVP Submission:', { name, phone });
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('rsvpForm').style.display = 'none';
+    });
+
+    // Start countdown
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
     // Phone number formatting
     document.getElementById('phoneNumber').addEventListener('input', function(e) {
-      let value = e.target.value.replace(/\D/g, '');
-      if (value.length >= 6) {
-        value = value.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
-      } else if (value.length >= 3) {
-        value = value.replace(/(\d{3})(\d+)/, '($1) $2');
-      }
-      e.target.value = value;
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length >= 6) v = v.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
+      else if (v.length >= 3) v = v.replace(/(\d{3})(\d+)/, '($1) $2');
+      e.target.value = v;
     });
   </script>
 </body>
