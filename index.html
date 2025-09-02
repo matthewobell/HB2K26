@@ -67,7 +67,7 @@
       gap: 40px;
     }
 
-  /* Left Section - Form */
+    /* Left Section - Form */
     .left-section {
       flex: 1;
       display: flex;
@@ -90,7 +90,7 @@
     .subtitle {
       font-size: 1.5rem;
       font-weight: var(--font-weight-bold);
-      margin-bottom: 20px;
+      margin-bottom: 40px;
       line-height: 1.4;
       opacity: 0.95;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -100,44 +100,50 @@
     .rsvp-form {
       backdrop-filter: blur(10px);
       border-radius: 30px;
-      padding: 50px;
+      padding: 20px;
       max-width: 580px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .form-group {
-      margin-bottom: 30px;
+      margin: 0;
     }
 
     .form-input {
       width: 100%;
-      padding: 22px 34px;
+      padding: 20px 30px;
       border: none;
       border-radius: 40px;
       font-size: 16px;
       font-family: inherit;
-      font-weight: var(--font-weight-bold);
-      letter-spacing: -0.05em;     /* corrected from -5% */
+      font-weight: var(--font-weight-regular);
+      letter-spacing: -0.02em;
       transition: all 0.3s ease;
       outline: none;
-      background-color: #ffffff;   /* ✅ white background */
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #A8A8FF; /* Lighter purple-blue color matching mockup */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .form-input:focus {
-      background-color: #e9ecef;
+      background-color: rgba(255, 255, 255, 0.95);
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      color: #9090FF;
     }
 
     .form-input::placeholder {
-      color: #6c757d;
-      opacity: 0.8;
+      color: #B8B8FF; /* Even lighter version matching the mockup */
+      opacity: 1;
+      font-weight: var(--font-weight-regular);
     }
 
     .rsvp-button {
       width: auto;              
-      padding: 18px 32px;       /* slightly tighter size */
+      padding: 18px 32px;
       border: none;
       border-radius: 40px;      
       background-color: var(--color-highlight);
@@ -146,14 +152,16 @@
       font-weight: var(--font-weight-bold);
       cursor: pointer;
       transition: all 0.3s ease;
-      text-transform: none;     /* ✅ normal capitalization */
+      text-transform: none;
       letter-spacing: -0.5px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* ✅ clean drop shadow */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      align-self: center;
+      margin-top: 10px;
     }
 
     .rsvp-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.35); /* slightly stronger on hover */
+      box-shadow: 0 10px 20px rgba(0,0,0,0.35);
       background-color: var(--color-pulse);
     }
 
@@ -161,88 +169,65 @@
       transform: translateY(0);
     }
 
-    /* Right Section - Image */
+    /* Right Section - Video */
     .right-section {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
+      padding: 20px 0;
     }
 
-     .image-container {
+    .image-container {
       position: relative;
       border-radius: 30px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       max-width: 600px;
       width: 100%;
-      min-height: 400px;
+      max-height: calc(100vh - 160px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .boat-image {
+    .boat-video {
       width: 100%;
-      height: auto;               /* keeps full image visible */
-      object-fit: contain;        /* scale without cropping */
+      max-height: 100%;
+      object-fit: contain;
       display: block;
-      border-radius: 20px;        /* optional rounding inside */
+      border-radius: 20px;
     }
 
-    /* Sun Animation Container */
-    .sun-container {
+    /* Timer positioned over the image */
+    .countdown-bubble {
       position: absolute;
       top: 20px;
       right: 20px;
-      width: 60px;
-      height: 60px;
-    }
-
-    .sun {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, #ffd700 0%, #ffed4e 70%);
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-      transition: all 2s ease-in-out;
-    }
-
-    .sun-1 {
-      top: 100px;
-      right: 0;
-      animation: sunRise1 var(--sun1-duration, 10s) ease-in-out forwards;
-    }
-
-    .sun-2 {
-      top: 80px;
-      right: 30px;
-      animation: sunRise2 var(--sun2-duration, 12s) ease-in-out forwards;
-      animation-delay: 1s;
-    }
-
-    @keyframes sunRise1 {
-      0% { transform: translateY(200px) scale(0.5); opacity: 0.3; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-    @keyframes sunRise2 {
-      0% { transform: translateY(180px) scale(0.3); opacity: 0.2; }
-      100% { transform: translateY(0) scale(0.8); opacity: 0.9; }
-    }
-
-    .overlay-text {
-      position: absolute;
-      bottom: 30px;
-      left: 30px;
-      color: white;
-      font-size: 1.2rem;
-      font-weight: var(--font-weight-bold);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      transform: rotate(-10deg);
-      background: rgba(0,0,0,0.3);
-      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       border-radius: 20px;
-      backdrop-filter: blur(5px);
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .timer-title {
+      font-size: 0.9rem;
+      font-weight: var(--font-weight-bold);
+      color: #333;
+      margin-bottom: 5px;
+      text-transform: none;
+    }
+
+    .countdown {
+      font-size: 1.1rem;
+      font-weight: var(--font-weight-bold);
+      font-family: var(--font-main);
+      color: #333;
+      letter-spacing: -0.02em;
     }
 
     /* Success Message */
@@ -255,23 +240,6 @@
       text-align: center;
       font-weight: var(--font-weight-semibold);
       display: none;
-    }
-
-    /* Timer Display - Hide to match mockup */
-    .timer-display {
-      display: none;
-    }
-
-    .timer-title {
-      font-size: 1.2rem;
-      font-weight: var(--font-weight-bold);
-      margin-bottom: 10px;
-    }
-
-    .countdown {
-      font-size: 2rem;
-      font-weight: var(--font-weight-bold);
-      font-family: 'Courier New', monospace;
     }
 
     /* Mobile Responsive */
@@ -288,7 +256,7 @@
       }
 
       .main-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
       }
 
       .subtitle {
@@ -296,18 +264,27 @@
       }
 
       .rsvp-form {
-        padding: 30px;
+        padding: 20px;
         max-width: 100%;
       }
 
       .image-container {
         max-width: 100%;
+        max-height: 50vh;
       }
 
-      .overlay-text {
+      .countdown-bubble {
+        top: 15px;
+        right: 15px;
+        padding: 12px 16px;
+      }
+
+      .countdown {
         font-size: 1rem;
-        bottom: 20px;
-        left: 20px;
+      }
+
+      .timer-title {
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -315,11 +292,6 @@
 <body>
   <main class="container">
     <section class="left-section">
-      <div class="timer-display">
-        <div class="timer-title">Event Countdown</div>
-        <div class="countdown" id="countdown">Loading...</div>
-      </div>
-      
       <h1 class="main-title">When the suns fully rise, we'll be back on the island!</h1>
       
       <p class="subtitle">Until then, let me know you're planning on coming by adding your name and number to the official HB2K26 group chat!</p>
@@ -340,47 +312,25 @@
     </section>
     
     <section class="right-section">
-    <div class="image-container">
-    <img src="heroimage.mov" alt="Boat scene with people celebrating" class="boat-image">
-    
-    <!-- Animated suns -->
-    <div class="sun-container">
-      <div class="sun sun-1" id="sun1"></div>
-      <div class="sun sun-2" id="sun2"></div>
-    </div>
-    
-    <div class="overlay-text">watch the suns rise</div>
-  </div>
-</section>
-</main>
+      <div class="image-container">
+        <video class="boat-video" autoplay muted loop playsinline>
+          <source src="heroimage.mov" type="video/quicktime">
+          <source src="heroimage.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        
+        <!-- Countdown positioned over the image -->
+        <div class="countdown-bubble">
+          <div class="timer-title">Countdown to HB2K26!</div>
+          <div class="countdown" id="countdown">Loading...</div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    // Set your target date here (YYYY, MM-1, DD, HH, MM, SS)
-    const targetDate = new Date(2026, 5, 15, 18, 0, 0); // June 15, 2026, 6:00 PM
-    
-    // Calculate sun animation based on time until target date
-    function updateSunAnimation() {
-      const now = new Date();
-      const totalTime = targetDate.getTime() - new Date(2025, 0, 1).getTime(); // From Jan 1, 2025 to target
-      const remainingTime = targetDate.getTime() - now.getTime();
-      const elapsed = totalTime - remainingTime;
-      const progress = Math.max(0, Math.min(1, elapsed / totalTime));
-      
-      // Update sun positions based on progress
-      const sun1 = document.getElementById('sun1');
-      const sun2 = document.getElementById('sun2');
-      
-      if (sun1 && sun2) {
-        const sun1Progress = Math.min(1, progress * 2); // First sun rises faster
-        const sun2Progress = Math.max(0, Math.min(1, (progress - 0.2) * 1.25)); // Second sun starts later
-        
-        sun1.style.transform = translateY(${200 - (200 * sun1Progress)}px) scale(${0.5 + (0.5 * sun1Progress)});
-        sun1.style.opacity = 0.3 + (0.7 * sun1Progress);
-        
-        sun2.style.transform = translateY(${180 - (180 * sun2Progress)}px) scale(${0.3 + (0.5 * sun2Progress)});
-        sun2.style.opacity = 0.2 + (0.7 * sun2Progress);
-      }
-    }
+    // Set target date to May 3, 2026
+    const targetDate = new Date(2026, 4, 3, 18, 0, 0); // May 3, 2026, 6:00 PM (month is 0-indexed)
     
     // Countdown timer
     function updateCountdown() {
@@ -394,7 +344,7 @@
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
         
         document.getElementById('countdown').textContent = 
-          ${days}d ${hours}h ${minutes}m ${seconds}s;
+          `${days}D: ${hours}H: ${minutes}M: ${seconds}S`;
       } else {
         document.getElementById('countdown').textContent = "The suns have risen! 🌅";
       }
@@ -412,31 +362,17 @@
         // For now, we'll just show a success message
         console.log('RSVP Submission:', { name, phone });
         
-        // You could integrate with a service like:
-        // 1. Google Sheets API
-        // 2. Airtable API  
-        // 3. A serverless function (Netlify/Vercel)
-        // 4. WhatsApp Business API
-        
         document.getElementById('successMessage').style.display = 'block';
         document.getElementById('rsvpForm').style.display = 'none';
-        
-        // Optional: Create WhatsApp group invite link
-        // const whatsappGroupLink = https://chat.whatsapp.com/YOUR_GROUP_INVITE_CODE;
-        // setTimeout(() => {
-        //   window.open(whatsappGroupLink, '_blank');
-        // }, 2000);
       }
     });
     
-    // Initialize and update animations
-    updateSunAnimation();
+    // Initialize and update countdown
     updateCountdown();
     
     // Update every second
     setInterval(() => {
       updateCountdown();
-      updateSunAnimation();
     }, 1000);
     
     // Phone number formatting
