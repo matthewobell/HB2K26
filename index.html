@@ -134,24 +134,24 @@
     }
 
     .rsvp-button {
-      width: auto;              /* shrink to fit the text */
-      padding: 22px 34px;       /* reduce vertical (12px) and horizontal (24px) padding */
+      width: auto;              
+      padding: 18px 32px;       /* slightly tighter size */
       border: none;
-      border-radius: 40px;      /* slightly smaller radius to match */
+      border-radius: 40px;      
       background-color: var(--color-highlight);
       color: white;
-      font-size: 16px;          /* slightly smaller text */
+      font-size: 16px;          
       font-weight: var(--font-weight-bold);
       cursor: pointer;
       transition: all 0.3s ease;
-      text-transform: uppercase;
+      text-transform: none;     /* ✅ normal capitalization */
       letter-spacing: -0.5px;
-      box-shadow: 0 6px 15px rgba(255, 153, 153, 0.4);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* ✅ clean drop shadow */
     }
 
     .rsvp-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(255, 153, 153, 0.6);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.35); /* slightly stronger on hover */
       background-color: var(--color-pulse);
     }
 
