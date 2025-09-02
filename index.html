@@ -80,13 +80,6 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-    }
-
     .rsvp-button {
       width: auto;
       padding: 18px 32px;
@@ -190,12 +183,7 @@
       <h1 class="main-title">When Palmer stops dancing, we'll be back on the island!</h1>
       <p class="subtitle">Until then, tap below to join the official HB2K26 Instagram group chat.</p>
 
-      <div class="button-group">
-        <!-- Direct invite link -->
-        <button type="button" class="rsvp-button" id="igJoinBtn">Join Instagram Chat</button>
-        <!-- Fallback DM -->
-        <button type="button" class="rsvp-button" id="igDmBtn">DM us on Instagram</button>
-      </div>
+      <button type="button" class="rsvp-button" id="igJoinBtn">Join Instagram Chat</button>
     </section>
     
     <section class="right-section">
@@ -216,16 +204,10 @@
   </main>
 
   <script>
-    // === Replace with your actual Instagram group invite link ===
-    const IG_INVITE_LINK = "https://www.instagram.com/direct/invite/YOUR_INVITE_CODE";
-    const IG_HANDLE = "your_handle"; // no @
+    const IG_INVITE_LINK = "https://ig.me/j/AbbJ-WdUYtzsO8bQ/";
 
     document.getElementById('igJoinBtn')?.addEventListener('click', () => {
       window.open(IG_INVITE_LINK, '_blank', 'noopener');
-    });
-
-    document.getElementById('igDmBtn')?.addEventListener('click', () => {
-      window.open(`https://ig.me/${IG_HANDLE}`, '_blank', 'noopener');
     });
 
     // Countdown (May 3, 2026 at 6:00 PM)
