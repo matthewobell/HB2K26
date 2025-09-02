@@ -314,7 +314,7 @@
     
     <section class="right-section">
       <div class="image-container">
-        <video class="boat-video" autoplay muted loop playsinline preload="auto">
+        <video class="boat-video" autoplay muted playsinline preload="auto">
           <source src="heroimage.mov" type="video/quicktime">
           <source src="heroimage.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -371,16 +371,42 @@
     // Initialize and update countdown
     updateCountdown();
     
-    // Ensure video plays consistently
+    // Ping-pong video playback (forward, then reverse, repeat)
     const video = document.querySelector('.boat-video');
     if (video) {
+      let isReversing = false;
+      
       video.addEventListener('loadeddata', () => {
         video.play().catch(e => console.log('Video autoplay prevented:', e));
       });
       
+      video.addEventListener('ended', () => {
+        if (!isReversing) {
+          // Start reversing
+          isReversing = true;
+          video.currentTime = video.duration;
+          reverseVideo();
+        }
+      });
+      
+      function reverseVideo() {
+        const reverseInterval = setInterval(() => {
+          if (video.currentTime <= 0) {
+            // Finished reversing, start playing forward again
+            clearInterval(reverseInterval);
+            isReversing = false;
+            video.currentTime = 0;
+            video.play().catch(e => console.log('Video play prevented:', e));
+          } else {
+            // Step backward through the video
+            video.currentTime = Math.max(0, video.currentTime - 0.033); // ~30fps reverse
+          }
+        }, 33); // ~30fps
+      }
+      
       // Handle visibility change to restart video when tab becomes visible
       document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && video.paused) {
+        if (!document.hidden && video.paused && !isReversing) {
           video.play().catch(e => console.log('Video play prevented:', e));
         }
       });
