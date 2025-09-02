@@ -376,9 +376,15 @@
     if (video) {
       let isReversing = false;
       
+      // Start video immediately when loaded
       video.addEventListener('loadeddata', () => {
         video.play().catch(e => console.log('Video autoplay prevented:', e));
       });
+      
+      // Also try to play immediately if already loaded
+      if (video.readyState >= 2) {
+        video.play().catch(e => console.log('Video autoplay prevented:', e));
+      }
       
       video.addEventListener('ended', () => {
         if (!isReversing) {
@@ -390,6 +396,9 @@
       });
       
       function reverseVideo() {
+        const frameRate = 60; // Higher frame rate for smoother reverse
+        const timeStep = 1 / frameRate; // Time to step back each frame
+        
         const reverseInterval = setInterval(() => {
           if (video.currentTime <= 0) {
             // Finished reversing, start playing forward again
@@ -398,10 +407,10 @@
             video.currentTime = 0;
             video.play().catch(e => console.log('Video play prevented:', e));
           } else {
-            // Step backward through the video
-            video.currentTime = Math.max(0, video.currentTime - 0.033); // ~30fps reverse
+            // Step backward through the video at proper speed
+            video.currentTime = Math.max(0, video.currentTime - timeStep);
           }
-        }, 33); // ~30fps
+        }, 1000 / frameRate); // 60fps intervals
       }
       
       // Handle visibility change to restart video when tab becomes visible
@@ -410,6 +419,13 @@
           video.play().catch(e => console.log('Video play prevented:', e));
         }
       });
+      
+      // Force play on any user interaction if autoplay was blocked
+      document.addEventListener('click', () => {
+        if (video.paused && !isReversing) {
+          video.play().catch(e => console.log('Video play prevented:', e));
+        }
+      }, { once: true });
     }
     
     // Update every second
