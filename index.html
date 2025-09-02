@@ -80,46 +80,11 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
-    .rsvp-form {
-      backdrop-filter: blur(10px);
-      border-radius: 30px;
-      padding: 20px;
-      max-width: 580px;
-      width: 100%;
+    .button-group {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
-    .form-group { margin: 0; }
-
-    .form-input {
-      width: 100%;
-      padding: 20px 30px;
-      border: none;
-      border-radius: 40px;
-      font-size: 16px;
-      font-family: inherit;
-      font-weight: var(--font-weight-bold);
-      letter-spacing: -0.02em;
-      transition: all 0.3s ease;
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #A8A8FF;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .form-input:focus {
-      background-color: rgba(255, 255, 255, 0.95);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      color: #9090FF;
-    }
-
-    .form-input::placeholder {
-      color: #B8B8FF;
-      opacity: 1;
-      font-weight: var(--font-weight-bold);
+      gap: 16px;
+      align-items: center;
     }
 
     .rsvp-button {
@@ -137,7 +102,6 @@
       letter-spacing: -0.5px;
       box-shadow: 0 6px 12px rgba(0,0,0,0.25);
       align-self: center;
-      margin-top: 10px;
     }
 
     .rsvp-button:hover {
@@ -208,23 +172,11 @@
       letter-spacing: -0.02em;
     }
 
-    .success-message {
-      background: linear-gradient(135deg, #28a745, #20c997);
-      color: white;
-      padding: 20px;
-      border-radius: 20px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: var(--font-weight-semibold);
-      display: none;
-    }
-
     @media (max-width: 768px) {
       .container { flex-direction: column; padding: 20px; gap: 30px; }
       .left-section { padding: 20px; text-align: center; }
       .main-title { font-size: 2.5rem; }
       .subtitle { font-size: 1.3rem; }
-      .rsvp-form { padding: 20px; max-width: 100%; }
       .image-container { max-width: 100%; max-height: 50vh; }
       .countdown-bubble { top: 15px; right: 15px; padding: 12px 16px; }
       .countdown { font-size: 1rem; }
@@ -236,20 +188,13 @@
   <main class="container">
     <section class="left-section">
       <h1 class="main-title">When Palmer stops dancing, we'll be back on the island!</h1>
-      <p class="subtitle">Until then, let me know you're coming by adding your name and number to the official HB2K26 group chat!</p>
+      <p class="subtitle">Until then, tap below to join the official HB2K26 Instagram group chat.</p>
 
-      <form class="rsvp-form" id="rsvpForm">
-        <div class="form-group">
-          <input type="text" class="form-input" id="fullName" placeholder="What's your name?" required>
-        </div>
-        <div class="form-group">
-          <input type="tel" class="form-input" id="phoneNumber" placeholder="And your number?" required>
-        </div>
-        <button type="submit" class="rsvp-button">Welcome aboard! ⛵️</button>
-      </form>
-
-      <div class="success-message" id="successMessage">
-        Thanks for signing up! You'll be added to the WhatsApp group soon. 🌅
+      <div class="button-group">
+        <!-- Direct invite link -->
+        <button type="button" class="rsvp-button" id="igJoinBtn">Join Instagram Chat</button>
+        <!-- Fallback DM -->
+        <button type="button" class="rsvp-button" id="igDmBtn">DM us on Instagram</button>
       </div>
     </section>
     
@@ -271,98 +216,37 @@
   </main>
 
   <script>
+    // === Replace with your actual Instagram group invite link ===
+    const IG_INVITE_LINK = "https://www.instagram.com/direct/invite/YOUR_INVITE_CODE";
+    const IG_HANDLE = "your_handle"; // no @
+
+    document.getElementById('igJoinBtn')?.addEventListener('click', () => {
+      window.open(IG_INVITE_LINK, '_blank', 'noopener');
+    });
+
+    document.getElementById('igDmBtn')?.addEventListener('click', () => {
+      window.open(`https://ig.me/${IG_HANDLE}`, '_blank', 'noopener');
+    });
+
     // Countdown (May 3, 2026 at 6:00 PM)
     const targetDate = new Date(2026, 4, 3, 18, 0, 0);
-
     function updateCountdown() {
       const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
+      const diff = targetDate.getTime() - now.getTime();
       const el = document.getElementById('countdown');
       if (!el) return;
-
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-        el.textContent = `${days}D: ${hours}H: ${minutes}M: ${seconds}S`;
+      if (diff > 0) {
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        el.textContent = `${d}D: ${h}H: ${m}M: ${s}S`;
       } else {
         el.textContent = "The suns have risen! 🌅";
       }
     }
-
-    function ensureInlineMuted(videoEl) {
-      videoEl.muted = true;
-      videoEl.playsInline = true;
-      videoEl.setAttribute('muted','');
-      videoEl.setAttribute('playsinline','');
-      videoEl.setAttribute('webkit-playsinline','');
-      videoEl.autoplay = true;
-      videoEl.setAttribute('autoplay','');
-    }
-
-    async function tryPlay(videoEl) {
-      try { await videoEl.play(); } catch(e) {
-        console.log('Autoplay blocked, retrying…', e?.name || e);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const video = document.querySelector('.boat-video');
-      if (!video) return;
-
-      ensureInlineMuted(video);
-      video.load();
-
-      // Initial tries
-      tryPlay(video);
-      ['loadedmetadata','canplay','loadeddata'].forEach(ev => {
-        video.addEventListener(ev, () => tryPlay(video), { once:true });
-      });
-
-      // Retry loop for ~3s
-      let retries = 6;
-      const id = setInterval(() => {
-        if (!video.paused || retries <= 0) return clearInterval(id);
-        tryPlay(video);
-        retries--;
-      }, 500);
-
-      // Resume if tab refocuses
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && video.paused) tryPlay(video);
-      });
-      window.addEventListener('focus', () => {
-        if (video.paused) tryPlay(video);
-      });
-
-      // Last resort: first user interaction
-      const unlock = () => { tryPlay(video); window.removeEventListener('pointerdown', unlock); };
-      window.addEventListener('pointerdown', unlock, { once:true, passive:true });
-    });
-
-    // RSVP form
-    document.getElementById('rsvpForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const name = document.getElementById('fullName').value.trim();
-      const phone = document.getElementById('phoneNumber').value.trim();
-      if (!name || !phone) return;
-      console.log('RSVP Submission:', { name, phone });
-      document.getElementById('successMessage').style.display = 'block';
-      document.getElementById('rsvpForm').style.display = 'none';
-    });
-
-    // Countdown tick
     updateCountdown();
     setInterval(updateCountdown, 1000);
-
-    // Phone input formatting
-    document.getElementById('phoneNumber').addEventListener('input', function(e) {
-      let v = e.target.value.replace(/\D/g,'');
-      if (v.length >= 6) v = v.replace(/(\d{3})(\d{3})(\d+)/,'($1) $2-$3');
-      else if (v.length >= 3) v = v.replace(/(\d{3})(\d+)/,'($1) $2');
-      e.target.value = v;
-    });
   </script>
 </body>
 </html>
