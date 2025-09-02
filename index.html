@@ -177,7 +177,7 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       max-width: 600px;
       width: 100%;
-      min-height: 600px;
+      min-height: 400px;
     }
 
     .boat-image {
@@ -341,16 +341,20 @@
     
     <section class="right-section">
   <div class="image-container">
-    <img src="heroimage.mov" alt="Boat scene with people celebrating" class="boat-image">
-    
-    <!-- Animated suns -->
-    <div class="sun-container">
-      <div class="sun sun-1" id="sun1"></div>
-      <div class="sun sun-2" id="sun2"></div>
-    </div>
-    
-    <div class="overlay-text">watch the suns rise</div>
+  <video class="boat-image" autoplay muted loop playsinline>
+    <source src="hermitage.mov" type="video/quicktime">
+    <source src="hermitage.mp4" type="video/mp4"> <!-- fallback for browsers that don’t support .mov -->
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Animated suns -->
+  <div class="sun-container">
+    <div class="sun sun-1" id="sun1"></div>
+    <div class="sun sun-2" id="sun2"></div>
   </div>
+
+  <div class="overlay-text">watch the suns rise</div>
+</div>
 </section>
 </main>
 
