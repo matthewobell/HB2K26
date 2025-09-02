@@ -255,7 +255,9 @@
     
     <section class="right-section">
       <div class="image-container">
-        <video class="boat-video" autoplay muted loop playsinline preload="auto">
+        <video 
+          class="boat-video" 
+          muted autoplay playsinline webkit-playsinline loop preload="auto">
           <source src="heroimage.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -289,23 +291,19 @@
       }
     }
 
-    // Autoplay helpers
     function ensureInlineMuted(videoEl) {
-      // Some browsers need both attribute and property set
       videoEl.muted = true;
-      videoEl.setAttribute('muted', '');
       videoEl.playsInline = true;
-      videoEl.setAttribute('playsinline', '');
+      videoEl.setAttribute('muted','');
+      videoEl.setAttribute('playsinline','');
+      videoEl.setAttribute('webkit-playsinline','');
       videoEl.autoplay = true;
-      videoEl.setAttribute('autoplay', '');
+      videoEl.setAttribute('autoplay','');
     }
 
     async function tryPlay(videoEl) {
-      try {
-        await videoEl.play();
-      } catch (e) {
-        // Swallow the error; we'll retry shortly or on visibility/focus
-        console.log('Autoplay prevented, will retry…', e?.name || e);
+      try { await videoEl.play(); } catch(e) {
+        console.log('Autoplay blocked, retrying…', e?.name || e);
       }
     }
 
@@ -314,32 +312,37 @@
       if (!video) return;
 
       ensureInlineMuted(video);
+      video.load();
 
-      // Try immediately and on key readiness events
+      // Initial tries
       tryPlay(video);
-      video.addEventListener('loadedmetadata', () => tryPlay(video), { once: true });
-      video.addEventListener('canplay', () => tryPlay(video), { once: true });
-      video.addEventListener('loadeddata', () => tryPlay(video), { once: true });
+      ['loadedmetadata','canplay','loadeddata'].forEach(ev => {
+        video.addEventListener(ev, () => tryPlay(video), { once:true });
+      });
 
-      // Light retry loop for first ~3 seconds
+      // Retry loop for ~3s
       let retries = 6;
-      const interval = setInterval(() => {
-        if (!video.paused || retries <= 0) return clearInterval(interval);
+      const id = setInterval(() => {
+        if (!video.paused || retries <= 0) return clearInterval(id);
         tryPlay(video);
         retries--;
       }, 500);
 
-      // Resume if tab becomes visible or window regains focus
+      // Resume if tab refocuses
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden && video.paused) tryPlay(video);
       });
       window.addEventListener('focus', () => {
         if (video.paused) tryPlay(video);
       });
+
+      // Last resort: first user interaction
+      const unlock = () => { tryPlay(video); window.removeEventListener('pointerdown', unlock); };
+      window.addEventListener('pointerdown', unlock, { once:true, passive:true });
     });
 
-    // Simple RSVP success swap
-    document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+    // RSVP form
+    document.getElementById('rsvpForm').addEventListener('submit', e => {
       e.preventDefault();
       const name = document.getElementById('fullName').value.trim();
       const phone = document.getElementById('phoneNumber').value.trim();
@@ -349,15 +352,15 @@
       document.getElementById('rsvpForm').style.display = 'none';
     });
 
-    // Start countdown
+    // Countdown tick
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Phone number formatting
+    // Phone input formatting
     document.getElementById('phoneNumber').addEventListener('input', function(e) {
-      let v = e.target.value.replace(/\D/g, '');
-      if (v.length >= 6) v = v.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
-      else if (v.length >= 3) v = v.replace(/(\d{3})(\d+)/, '($1) $2');
+      let v = e.target.value.replace(/\D/g,'');
+      if (v.length >= 6) v = v.replace(/(\d{3})(\d{3})(\d+)/,'($1) $2-$3');
+      else if (v.length >= 3) v = v.replace(/(\d{3})(\d+)/,'($1) $2');
       e.target.value = v;
     });
   </script>
